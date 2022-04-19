@@ -92,7 +92,7 @@ app.get('/ssh/host/:host/:container_id', (req, res) => {
   if (!req.params.container_id) {
     throw new Error('Container id is not provided');
   }
-  console.log({ params: req.params });
+  console.log('ssh params =', { params: req.params });
   res.sendFile(path.join(path.join(publicPath, 'client.htm')));
   // capture, assign, and validate variables
   req.session.ssh = {
