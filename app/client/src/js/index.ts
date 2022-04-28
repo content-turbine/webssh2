@@ -8,8 +8,8 @@ import { faBars, faClipboard, faDownload, faKey, faCog } from '@fortawesome/free
 // for Internet Explorer compatibility... i know gross...
 declare global {
   interface Navigator {
-      msSaveBlob?: (blob: any, defaultName?: string) => boolean
-      msSaveOrOpenBlob?: (blob: any, defaultName?: string) => boolean
+    msSaveBlob?: (blob: any, defaultName?: string) => boolean;
+    msSaveOrOpenBlob?: (blob: any, defaultName?: string) => boolean;
   }
 }
 
@@ -55,15 +55,15 @@ term.open(terminalContainer);
 term.focus();
 fitAddon.fit();
 
-
-window.onmessage = function(e) {
-  const commandWithPrefix = `${e.data}`;
-  if (commandWithPrefix.substring(0,13) === "dt_ui_command") {
-      let command = commandWithPrefix.replace("dt_ui_command ", '');
-      socket.emit("data", `${command}\r`);
+window.onmessage = function (e) {
+  if (e.origin.startsWith('https://app.demoturbine.com')) {
+    const commandWithPrefix = `${e.data}`;
+    if (commandWithPrefix.substring(0, 13) === 'dt_ui_command') {
+      const command = commandWithPrefix.replace('dt_ui_command ', '');
+      socket.emit('data', `${command}\r`);
+    }
   }
 };
-
 
 const socket = io({
   path: '/ssh/socket.io',
