@@ -56,13 +56,18 @@ term.focus();
 fitAddon.fit();
 
 window.onmessage = function (e) {
-  if (e.origin.startsWith('https://app.demoturbine.com')) {
-    const commandWithPrefix = `${e.data}`;
-    if (commandWithPrefix.substring(0, 13) === 'dt_ui_command') {
-      const command = commandWithPrefix.replace('dt_ui_command ', '');
-      socket.emit('data', `${command}\r`);
-    }
+  console.log('e.origin=', e.origin);
+  console.log(
+    'e.origin.startsWith https://app.demoturbine.com =',
+    e.origin.startsWith('https://app.demoturbine.com')
+  );
+  // if (e.origin.startsWith('https://app.demoturbine.com')) {
+  const commandWithPrefix = `${e.data}`;
+  if (commandWithPrefix.substring(0, 13) === 'dt_ui_command') {
+    const command = commandWithPrefix.replace('dt_ui_command ', '');
+    socket.emit('data', `${command}\r`);
   }
+  // }
 };
 
 const socket = io({
